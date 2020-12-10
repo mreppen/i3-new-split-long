@@ -18,15 +18,15 @@ sudo apt-get install python3-pip git
 pip3 install i3ipc
 git clone https://github.com/mreppen/3-new-split-long
 ```
-And add `alternating_layouts.py` to your `~/.i3/config` autostart:
+And add `i3_long_split.py` to your `~/.i3/config` autostart:
 ```
-exec --no-startup-id /path/to/alternating_layouts.py
+exec --no-startup-id /path/to/i3_long_split.py
 ```
 
 ### Arch Linux
 Install `python-i3ipc`, clone the repo, then add
 ```
-exec --no-startup-id /path/to/alternating_layouts.py
+exec --no-startup-id /path/to/i3_long_split.py
 ```
 to your `~/.i3/config`.
 
