@@ -3,7 +3,9 @@ i3-new-split-long
 
 IPC script to automatically make the next split along the direction in which there is most space.
 
-The code is based on [i3-alternating-layout](https://github.com/olemartinorg/i3-alternating-layout), but avoids splitting on focus change, as that causes other frustrations in my workflow.  See the section on known problems for the (small) trade-offs.
+The code is based on [i3-alternating-layout](https://github.com/olemartinorg/i3-alternating-layout), which has the side effect of changing manual tiling behavior.
+
+This script was built to preserve normal behavior, except for when new windows are created, and to implement a slightly different splitting logic.  This comes with a (small) trade-off, documented in the "Known problems" section.
 
 Note: I am running Sway. Others have tested it on i3.
 
