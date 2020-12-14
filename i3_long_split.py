@@ -4,6 +4,7 @@ import getopt
 import sys
 import os
 from i3ipc import Connection, Event
+import time
 
 last_focus_con = None
 
@@ -28,16 +29,16 @@ def split_move_new(i3, e):
     if parent is None or (parent.workspace() is parent and len(parent.nodes) == 1):
         return
 
-    playout = parent.layout
-
     if last_focus_con.rect.height > last_focus_con.rect.width:
         command = f"[con_id={last_focus_con.id}] split v; "
     else:
         command = f"[con_id={last_focus_con.id}] split h; "
 
-    if playout == "splitv":
+    playout = parent.layout
+
+    if playout == "splitv" or playout == "stacked":
         command += f"[con_id={e.container.id}] move up"
-    elif playout == "splith":
+    elif playout == "splith" or playout == "tabbed":
         command += f"[con_id={e.container.id}] move left"
 
     i3.command(command)
