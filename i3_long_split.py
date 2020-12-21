@@ -26,20 +26,30 @@ def find_parent(i3, window_id):
 
 def split_move_new(i3, e):
     parent = find_parent(i3, e.container.id)
+    # First window on a workspace:
     if parent is None or (parent.workspace() is parent and len(parent.nodes) == 1):
         return
 
-    if last_focus_con.rect.height > last_focus_con.rect.width:
-        command = f"[con_id={last_focus_con.id}] split v; "
+    tall = last_focus_con.rect.height > last_focus_con.rect.width
+
+    if len(parent.nodes) == 2:
+        # If two nodes, then no new split is needed
+        if tall:
+            command = f"[con_id={last_focus_con.id}] layout splitv"
+        else:
+            command = f"[con_id={last_focus_con.id}] layout splith"
     else:
-        command = f"[con_id={last_focus_con.id}] split h; "
+        if tall:
+            command = f"[con_id={last_focus_con.id}] split v; "
+        else:
+            command = f"[con_id={last_focus_con.id}] split h; "
 
-    playout = parent.layout
+        playout = parent.layout
 
-    if playout == "splitv" or playout == "stacked":
-        command += f"[con_id={e.container.id}] move up"
-    elif playout == "splith" or playout == "tabbed":
-        command += f"[con_id={e.container.id}] move left"
+        if playout == "splitv" or playout == "stacked":
+            command += f"[con_id={e.container.id}] move up"
+        elif playout == "splith" or playout == "tabbed":
+            command += f"[con_id={e.container.id}] move left"
 
     i3.command(command)
 
