@@ -57,6 +57,9 @@ def record_focus(i3, e):
     global last_focus_con
     last_focus_con = i3.get_tree().find_by_id(e.container.id)
 
+def split_none(i3, e):
+    i3.command("split none")
+
 def print_help():
     print("Usage: " + sys.argv[0] + " [-p path/to/pid.file]")
     print("")
@@ -88,6 +91,8 @@ def main():
     last_focus_con = i3.get_tree().find_focused()
     i3.on(Event.WINDOW_NEW, split_move_new)
     i3.on(Event.WINDOW_FOCUS, record_focus)
+    if os.getenv("SWAYSOCK") is not None:
+        i3.on(Event.WINDOW_CLOSE, split_none)
     i3.main()
 
 
